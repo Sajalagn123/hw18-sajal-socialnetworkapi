@@ -1,4 +1,4 @@
-# hw18-sajal-socialnetworkapi
+# Sajal's Social Network API Project
 
 ## Description
 
