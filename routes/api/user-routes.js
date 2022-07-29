@@ -62,7 +62,7 @@ router.put("/:userId", async (req, res) => {
 router.delete("/:userId", async (req, res) => {
   try {
     await User.deleteOne({ _id: req.params.userId });
-    res.status(200).json({"status":"success"});
+    res.status(200).json({ status: "success" });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -72,40 +72,40 @@ router.delete("/:userId", async (req, res) => {
 //TODO - ROUTE THAT ADDS A FRIEND TO A USER
 router.put("/:userId/friends/:friendId", async (req, res) => {
   try {
-  console.log(req.body, req.params.userId)
+    console.log(req.body, req.params.userId);
 
-  let updatedUser = await User.findOneAndUpdate(
+    let updatedUser = await User.findOneAndUpdate(
       { _id: req.params.userId },
       {
-          $push: { friends: req.params.friendId }
+        $push: { friends: req.params.friendId },
       }
-  )
-  console.log(updatedUser)
-  res.status(200).json('yay')
-} catch (err) {
-  console.log(err)
-  res.status(500).json(err)
-}
+    );
+    console.log(updatedUser);
+    res.status(200).json("yay");
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 //TODO - ROUTE THAT DELETES A FRIEND FROM A USER'S FRIENDS, DONT DELETE THE FRIEND AS A USER THOUGH!
 router.delete("/:userId/friends/:friendId", async (req, res) => {
   try {
-    console.log(req.body, req.params.userId)
-  
+    console.log(req.body, req.params.userId);
+
     let updatedUser = await User.findOneAndUpdate(
-        { _id: req.params.userId },
-        {
-          $pullAll: {
-            friends: [{_id: req.params.friendId}],
+      { _id: req.params.userId },
+      {
+        $pullAll: {
+          friends: [{ _id: req.params.friendId }],
         },
       }
-    )
-    console.log(updatedUser)
-    res.status(200).json('successful delete')
+    );
+    console.log(updatedUser);
+    res.status(200).json("successful delete");
   } catch (err) {
-    console.log(err)
-    res.status(500).json(err)
+    console.log(err);
+    res.status(500).json(err);
   }
 });
 
